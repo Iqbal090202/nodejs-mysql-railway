@@ -1,17 +1,29 @@
 import express from "express";
-import { pool } from "./db.js"
 import { PORT } from "./config.js";
+import appRoute from "./routes.js";
 
-const app = express()
+const app = express();
 
-app.get('/', async (req, res) => {
-  const [rows] = await pool.query('SELECT name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL')
-  res.json(rows)
-})
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-app.get('/create', async (req, res) => {
-  const result = await pool.query('INSERT INTO users')
-})
+app.get("/", (req, res) => {
+  res.json({ message: "API NODE JS" });
+});
 
-app.listen(PORT)
-console.log('Server on port', PORT)
+// app.get("/", async (req, res) => {
+//   const [rows] = await pool.query(
+//     "SELECT name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL"
+//   );
+//   res.json(rows);
+// });
+
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
+});
+
+app.use("/", appRoute);
