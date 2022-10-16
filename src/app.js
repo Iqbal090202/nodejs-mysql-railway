@@ -17,13 +17,6 @@ app.get("/", (req, res) => {
   res.json({ message: "API NODE JS" });
 });
 
-// app.get("/", async (req, res) => {
-//   const [rows] = await pool.query(
-//     "SELECT name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL"
-//   );
-//   res.json(rows);
-// });
-
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });

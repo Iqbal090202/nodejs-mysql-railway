@@ -30,7 +30,7 @@ const getCurrentDate = () => {
 
 export const getUsers = async (req, res) => {
   const [rows] = await pool.query(
-    "SELECT name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL"
+    "SELECT id, name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL"
   );
   res.json({
     success: true,
@@ -42,7 +42,7 @@ export const getUsers = async (req, res) => {
 export const getUserByID = async (req, res) => {
   let id = req.params.id;
   const [rows] = await pool.query(
-    `SELECT name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL AND id = ?`,
+    `SELECT id, name, address, telp, age, created_at FROM users WHERE deleted_at IS NULL AND id = ?`,
     [id]
   );
   res.json({
